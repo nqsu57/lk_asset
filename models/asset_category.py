@@ -2,8 +2,8 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 # -- Purpose: Danh muc tai san
-# -- Create date:
-# -- Author:
+# -- Create date: 1/12/2022
+# -- Author: thanh trúc
 # -- Update date
 # -- Update by
 # -- Update content
@@ -12,7 +12,7 @@
 
 # imports of odoo
 from odoo import api, fields, models, _
-
+from odoo.exceptions import UserError, ValidationError
 # imports of odoo modules
 
 
@@ -53,3 +53,10 @@ class AssetCategory(models.Model):
     # action methods: button in view
 
     # business methods: @api.model
+    @api.constrains('code')
+    def _check_code_unique(self):
+        code_counts = self.search_count([('code','=', self.code),
+                                         ('id', '!=', self.id)
+                                         ])
+        if code_counts > 0:
+            raise ValidationError("Mã danh mục đã có")

@@ -18,7 +18,7 @@ from odoo import api, fields, models, _
 
 class AssetCategory(models.Model):
     # private attributes
-    _name = 'asset'
+    _name = 'asset.asset'
     _order = 'id'
 
     # default_method: _default_<field_name>, _selection_<field_name>

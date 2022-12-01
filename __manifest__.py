@@ -17,6 +17,7 @@
         'data/res.lang.csv',
         'views/web_custom.xml',
         'views/web_custom_templates.xml',
+        'views/asset_category_views.xml',
         # luôn để file menu ở cuối cùng
         'views/menu_views.xml',
     ],

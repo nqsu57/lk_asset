@@ -25,6 +25,11 @@
                   name="Sao lưu dữ liệu"
                   sequence="3"
                   parent="menu_setting"/>
+        <menuitem id="menu_asset_category"
+                  action="action_asset_category"
+                  name="Danh mục tài sản"
+                  sequence="10"
+                  groups="base.group_user"/>
         
         <!--<record id="new_notification1" model="notification.manager">-->
 		<!--	<field name="user_domain">['|', ('new_group_id.name', '=', 'Giám đốc'),-->

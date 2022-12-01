@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="asset_category_form" model="ir.ui.view">
+            <field name="name">asset.category.form</field>
+            <field name="model">asset.category</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                                <label for="code"/>
+                                <h1><field name="code"/></h1>
+                                <label for="name"/>
+                                <h1><field name="name"/></h1>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="asset_category_tree" model="ir.ui.view">
+            <field name="name">asset.category.tree</field>
+            <field name="model">asset.category</field>
+            <field name="arch" type="xml">
+                <tree string="Tên danh mục" default_order="create_date desc">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="asset_category_search" model="ir.ui.view">
+            <field name="name">asset.category.form</field>
+            <field name="model">asset.category</field>
+            <field eval="10" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Asset Category Search">
+                    <field name="code" string="Mã danh mục"/>
+                    <field name="name" string="Tên danh mục"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_asset_category" model="ir.actions.act_window">
+            <field name="name">Danh mục tài sản</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">asset.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('asset_category_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('asset_category_form')})]"/>
+        </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,2 @@
+"id","name","code","iso_code","direction","grouping","decimal_point","thousands_sep","date_format","time_format","week_start"
+"base.lang_vi_VN","Vietnamese / Tiếng Việt","vi_VN","vi","Left-to-Right","[3,0]",",",".","%d/%m/%Y","%H:%M:%S","1"

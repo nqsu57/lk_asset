@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--odoo login form-->
+    <template id="web_login_custom" inherit_id="web.login">
+        <xpath expr="//form[hasclass('oe_login_form')]" position="replace">
+            <div class="card-header">
+                ĐĂNG NHẬP
+            </div>
+            <div class="card-body">
+                <form class="oe_login_form" role="form" t-attf-action="/web/login" method="post"
+                      onsubmit="this.action = this.action + location.hash">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                    <div class="form-group">
+                        <label for="login" class="label-text">Tài khoản:</label>
+                        <div class="input">
+                            <span class="icon fa fa-user"></span>
+                            <input class="required form-control" id="login" size="25" tabindex="1" type="text"
+                                   oninvalid="this.setCustomValidity('Vui lòng nhập tài khoản!')"
+                                   required="required" autofocus="autofocus" autocapitalize="off" placeholder=""
+                                   name="login" value=""/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="label-text">Mật khẩu:</label>
+                        <div class="input">
+                            <span class="icon fa fa-lock"></span>
+                            <input class="required form-control" id="password" size="25" tabindex="1" type="password"
+                                   oninvalid="this.setCustomValidity('Vui lòng nhập mật khẩu!')"
+                                   placeholder="" name="password" value="" required="required"
+                                   autocomplete="current-password" maxlength="4096"/>
+                        </div>
+                    </div>
+
+                    <t t-if="login_recaptcha">
+                        <textarea name="field-recaptcha-response" id="field-recaptcha-response" class="d-none"/>
+                        <script t-attf-src="https://www.google.com/recaptcha/api.js?render={{ recaptcha_site_key }}"/>
+                        <script>
+                            grecaptcha.ready(function() {
+                            grecaptcha.execute('<t t-esc="recaptcha_site_key"/>', {action:
+                            'login'}).then(function(token) {
+                            document.getElementById('field-recaptcha-response').innerHTML = token;
+                            });
+                            });
+                        </script>
+                    </t>
+                    <p class="alert alert-danger" t-if="error" role="alert">
+                        <t t-esc="error"/>
+                    </p>
+                    <p class="alert alert-success" t-if="message" role="status">
+                        <t t-esc="message"/>
+                    </p>
+                    <div t-attf-class="clearfix oe_login_buttons text-center mb-1 {{'pt-2' if form_small else 'pt-3'}}">
+                        <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                        <div class="justify-content-between mt-2 d-flex small">
+                            <a t-attf-href="/web/reset_password?{{ keep_query() }}">Đổi mật khẩu</a>
+                        </div>
+                        <div class="o_login_auth"/>
+                    </div>
+                    <input type="hidden" name="redirect" t-att-value="redirect"/>
+                </form>
+            </div>
+
+        </xpath>
+    </template>
+
+    <!--odoo reset password-->
+    <template id="web_reset_password_custom" inherit_id="auth_signup.reset_password">
+        <xpath expr="//form[hasclass('oe_reset_password_form')]" position="replace">
+            <div class="card-header">
+                ĐỔI MẬT KHẨU
+            </div>
+            <div class="card-body">
+                <form class="oe_reset_password_form" role="form" method="post" t-if="not message">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                    <t t-if="token and not invalid_token">
+                        <t t-call="auth_signup.fields">
+                            <t t-set="only_passwords" t-value="1"/>
+                        </t>
+                    </t>
+
+                    <t t-if="not token">
+                        <div class="form-group">
+                            <label for="login" class="label-text">Tài khoản:</label>
+                            <div class="input">
+                                <span class="icon fa fa-user"></span>
+                                <input class="required form-control" id="login" size="25" tabindex="1" type="text"
+                                       oninvalid="this.setCustomValidity('Vui lòng nhập tài khoản!')"
+                                       required="required" autofocus="autofocus" autocapitalize="off" placeholder=""
+                                       name="login" value=""/>
+                            </div>
+                        </div>
+                    </t>
+
+                    <p class="alert alert-danger" t-if="error" role="alert">
+                        <t t-esc="error"/>
+                    </p>
+                    <input type="hidden" name="redirect" t-att-value="redirect"/>
+                    <input type="hidden" name="token" t-att-value="token"/>
+                    <div class="clearfix oe_reset_password_buttons text-center mb-1 pt-3">
+                        <button type="submit" class="btn btn-primary btn-block">Xác nhận</button>
+                        <div class="justify-content-between mt-2 d-flex small">
+                            <a t-attf-href="/web/login?{{ keep_query() }}">Quay lại đăng nhập</a>
+                        </div>
+
+<!--                        <div class="d-flex justify-content-between align-items-center small mt-2">-->
+<!--                            <a t-if="not token" t-attf-href="/web/login?{{ keep_query() }}">Quay lại đăng nhập</a>-->
+<!--                            <a t-if="invalid_token" href="/web/login">Đăng nhập</a>-->
+<!--                        </div>-->
+                        <div class="o_login_auth"/>
+                    </div>
+
+                </form>
+            </div>
+        </xpath>
+    </template>
+
+    <!--remove placeholder in field-->
+    <template id="fields_inheirt" inherit_id="auth_signup.fields">
+        <xpath expr="//div[hasclass('field-name')]/input" position="attributes">
+            <attribute name="placeholder"></attribute>
+        </xpath>
+    </template>
+
+    <!--change title webpage-->
+    <template id="web_layout_custom" inherit_id="web.layout">
+        <xpath expr="//title" position="replace">
+            <title t-esc="title or 'Quản lý tài sản'"/>
+        </xpath>
+        <xpath expr="//link" position="replace">
+            <link type="image/x-icon" rel="shortcut icon"
+                  t-att-href="x_icon or '/lk_asset/static/src/img/logo.png'"/>
+        </xpath>
+    </template>
+
+    <!--change logo and hide manage database odoo-->
+    <template id="web_loginlayout_custom" inherit_id="web.login_layout">
+        <xpath expr="//t[@t-call='web.frontend_layout']" position="replace">
+            <t t-call="web.frontend_layout">
+                <t t-set="html_data" t-value="{'style': 'height: 100%;'}"/>
+                <t t-set="body_classname" t-value="'bg-100'"/>
+                <t t-set="no_header" t-value="True"/>
+                <t t-set="no_footer" t-value="True"/>
+                <div class="bg"></div>
+                <div class="container py-5 login"
+                     style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div t-attf-class="text-center border-bottom {{'mb-3' if form_small else 'mb-4'}}">
+                                <img t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}" alt="Logo"
+                                     class="custom_logo"/>
+                            </div>
+                            <div class="comp_name">
+                                <div class="title">QUẢN LÝ TÀI SẢN</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div t-attf-class="card border-0 mx-auto {{login_card_classes}} o_database_list">
+
+                                <t t-raw="0"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

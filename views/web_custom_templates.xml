@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--khai báo css, js để sử dụng cho backend-->
+        <template id="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="script[last()]" position="after">
+                <!--<script type="text/javascript" src="/lk_asset/static/src/js/dashboard.js"/>-->
+                <link rel="stylesheet" type="text/scss" href="/lk_asset/static/src/scss/web_backend.scss"/>
+            </xpath>
+        </template>
+
+        <!--khai báo css, js để sử dụng cho chức năng report của odoo-->
+        <template id="assets_common" inherit_id="web.report_assets_common">
+            <xpath expr="." position="inside">
+                <!--<link rel="stylesheet" type="text/scss" href="/lk_asset/static/src/scss/report.scss"/>-->
+            </xpath>
+        </template>
+
+        <!--khai báo css để chỉnh sửa màu sắc backend, odoo định nghĩa các biến màu sắc scss-->
+        <template id="assets_theme_backend" inherit_id="web._assets_primary_variables">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/scss" href="/lk_asset/static/src/scss/theme.scss"/>
+            </xpath>
+        </template>
+
+        <!--khai báo css, js để sử dụng cho frontend-->
+        <template id="assets_frontend" inherit_id="web.assets_frontend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/lk_asset/static/src/scss/web_frontend.scss"/>
+            </xpath>
+            <xpath expr="//script[last()]" position="after">
+                <script src="/web/static/lib/Chart/Chart.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--default value when update module -->
+    <data noupdate="0">
+
+    </data>
+
+    <!--default value when install module -->
+    <data noupdate="1">
+
+    </data>
+</odoo>

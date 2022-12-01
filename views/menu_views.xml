@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu_setting"
+                  name="Hệ thống"
+                  sequence="6"
+                  web_icon="lk_asset,static/description/setting.png"/>
+        <menuitem id="menu_res_users"
+                  action="lk_base.action_res_users_simple"
+                  name="Người dùng"
+                  sequence="0"
+                  parent="menu_setting"/>
+        <menuitem id="menu_res_groups"
+                  action="base.action_res_groups"
+                  name="Nhóm"
+                  sequence="1"
+                  parent="menu_setting"/>
+        <menuitem id="menu_system_log"
+                  action="lk_base.system_log_action"
+                  name="Nhật ký hệ thống"
+                  sequence="2"
+                  parent="menu_setting"/>
+        <menuitem id="menu_backup"
+                  action="lk_base.action_backup"
+                  name="Sao lưu dữ liệu"
+                  sequence="3"
+                  parent="menu_setting"/>
+        
+        <!--<record id="new_notification1" model="notification.manager">-->
+		<!--	<field name="user_domain">['|', ('new_group_id.name', '=', 'Giám đốc'),-->
+		<!--		('new_group_id.inherit_group', '=', 'lk_loan.group_director')]</field>-->
+        <!--    <field name="model_id" ref="lk_loan.model_loan_contract"/>-->
+        <!--    <field name="description">Chưa duyệt</field>-->
+        <!--    <field name="action_xmlid">lk_loan.action_loan_contract</field>-->
+        <!--    <field name="action_context">search_default_not_confirm</field>-->
+        <!--    <field name="function_domain">[('state','!=','done')]</field>-->
+		<!--	<field name="action_domain">[]</field>-->
+        <!--</record>-->
+    </data>
+</odoo>

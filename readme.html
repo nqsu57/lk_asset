@@ -1,0 +1,25 @@
+# Quy tắc đặt tên file
+    tên module: do trưởng dự án đặt với tiếp đồng ngữ: lk_{mô tả dự án tiếng anh}. Ví dụ: lk_education
+    tên file model của dự án (nếu của odoo thì giữ nguyên tên bảng của odoo): {mô tả dự án tiếng anh}_{mục đích tạo file}. Ví dụ: education_student
+    tên file report: {mô tả dự án tiếng anh}_{mục đích tạo file}. Ví dụ: education_student_report
+    tên file wizard: {mô tả dự án tiếng anh}_{mục đích tạo file}. Ví dụ: education_add_student_wizard
+    tên file xml (ngoại trừ xml trong folder static/src/xml):
+        tên file view: {tên của file model}_views. Ví dụ: education_student_views
+        tên file report: {tên của file model}_report_views. Ví dụ: education_student_report_views
+        tên file wizard: {tên của file model}_wizard_views. Ví dụ: education_add_student_wizard_views
+    tên file xml (trong folder static/src/xml): {mô tả dự án tiếng anh}_{mục đích tạo file}. Ví dụ: education_dashboard
+    tên file js: {mô tả dự án tiếng anh}_{mục đích tạo file}. Ví dụ: education_dashboard
+# Quy tắc dịch ngôn ngữ
+    đối với python:
+        đối với api (đối với hàm login hoặc các hàm không lấy được thông tin user hiện tại): truyền thêm params language
+        đối với các hàm còn lại: thêm _(""). Ví dụ:
+            raise UserError(_("Incomplete params"))
+            _("Chuyển cho %(assign_user)s xử lý lại", assign_user='Giang')
+    đối với js:
+        thêm _t("") ví dụ console.log(_t("Incomplete params"));
+# code python
+    # xử lý database:
+        ưu tiên sử dụng orm thay cho sql
+        sử dụng các hàm dựng sẵn của odoo: filtered, sorted, mapped
+    # Xử lý chuỗi:
+        không sử dụng cộng chuỗi ("error incomplete data " + giá_trị) -> "error incomplete data %s" % giá_trị

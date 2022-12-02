@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <record id="view_asset_search" model="ir.ui.view">
+            <field name="name">asset.asset.select</field>
+            <field name="model">asset.asset</field>
+            <field name="arch" type="xml">
+                <search string="Search asset">
+                    <field name="asset_code"/>
+                    <field name="asset_name"/>
+                    <field name="asset_category_id"/>
+                    <group expand='0' string='Group by'>
+                        <filter string='Loại tài sản' name="asset_type_group" context="{'group_by': 'asset_type'}"/>
+                        <filter string='Danh mục tài sản' name="asset_category_id" context="{'group_by': 'asset_category_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
         <record id="asset_view_tree" model="ir.ui.view">
             <field name="name">asset.asset.tree</field>
             <field name="model">asset.asset</field>
@@ -11,41 +26,61 @@
                     <field name="asset_type"/>
                     <field name="asset_category_id"/>
                     <field name="asset_price"/>
-<!--                    <field name="/> So luong hien co-->
-<!--                    <field name="/> So luong da su dung-->
-<!--                    <field name="/> So luong con lai-->
                 </tree>
             </field>
-       </record>
+        </record>
         <record id="asset_view_form" model="ir.ui.view">
             <field name="name">asset.asset.form</field>
             <field name="model">asset.asset</field>
             <field name="arch" type="xml">
                 <form string="Asset Form">
                     <sheet>
+                        <h1 class="oe_title pr-0"><group><field name="asset_name"/></group></h1>
                         <group>
-                            <field name="asset_code"/>
-                            <field name="asset_name"/>
-                            <field name="asset_type"/>
-                            <field name="asset_category_id"/>
-                            <field name="asset_origin"/>
-                            <field name="asset_year_of_manufacture"/>
-                            <field name="asset_year_put_into_use"/>
-                            <field name="asset_price"/>
-<!--                            So luong hien co-->
-<!--                            So luong su dung-->
-<!--                            So luong con lai-->
-<!--                            Thong tin su dung-->
-                            <field name="asset_note"/>
+                            <group>
+                                <field name="asset_code"/>
+                            </group>
+                            <group>
+                                <field name="asset_type"/>
+                            </group>
+                            <group>
+                                <field name="asset_price"/>
+                            </group>
+                            <group>
+                                <field name="asset_category_id"/>
+                            </group>
+                            <group>
+                                <field name="asset_origin"/>
+                            </group>
+
+                            <group>
+                                <field name="asset_year_of_manufacture"/>
+                            </group>
+                            <group>
+                                <field name="asset_year_put_into_use"/>
+                            </group>
+                            <group>
+                                <field name="asset_current"/>
+                            </group>
+                            <group>
+                                <field name="asset_used"/>
+                            </group>
+                            <group>
+                                <field name="asset_remaining"/>
+                            </group>
+                            <group>
+                                <field name="asset_note"/>
+                            </group>
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
         <record id="asset_asset_action" model="ir.actions.act_window">
-            <field name="name">Quan ly tai san</field>
+            <field name="name">Tài sản</field>
             <field name="res_model">asset.asset</field>
             <field name="view_mode">tree,form</field>
+            <field name="context">{"disable_menu": "filter"}</field>
         </record>
     </data>
 </odoo>

@@ -25,6 +25,10 @@
                   name="Sao lưu dữ liệu"
                   sequence="3"
                   parent="menu_setting"/>
+        <menuitem id="asset_asset_menu"
+                  action="asset_asset_action"
+                  name="Quan ly tai san"
+                  sequence="4"/>
         <menuitem id="menu_asset_category"
                   action="action_asset_category"
                   name="Danh mục tài sản"
